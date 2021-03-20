@@ -21,22 +21,19 @@ st.write('This is a web app to classify whether a customer will churn based on\
 def run():
 
     from PIL import Image
-    image = Image.open('churn_image2.png')
     image_2 = Image.open('churn_image.jpeg')
 
-    st.image(image,use_column_width=False)
+    #st.image(image,use_column_width=False)
 
     add_selectbox = st.sidebar.selectbox(
     "How would you like to predict?",
     ("Online", "Batch"))
 
+    st.sidebar.image(image_2)
+
     st.sidebar.info('This app is created to predict if a customer will churn')
     st.sidebar.success('https://www.github.com/pereira94')
     
-    st.sidebar.image(image_2)
-
-    st.title("Customer Churn Prediction App")
-
     if add_selectbox == 'Online':
 
         tenure = st.number_input('Tenure in Months', min_value=0, max_value=80, value=7)
@@ -55,22 +52,22 @@ def run():
         'Bank transfer (automatic)', 'Credit card (automatic)'])
 
 
-        if st.checkbox('Senior Citizen'):
+        if st.checkbox('Senior Citizen?'):
             SeniorCitizen = 1
         else:
             SeniorCitizen = 0
 
-        if st.checkbox('Has Partner'):
+        if st.checkbox('Has Partner?'):
             Partner = True
         else:
             Partner = False
         
-        if st.checkbox('Has Dependents'):
+        if st.checkbox('Has Dependents?'):
             Dependents = True
         else:
             Dependents = False
 
-        if st.checkbox('Has Phone Service'):
+        if st.checkbox('Has Phone Service?'):
             PhoneService = True
         else:
             PhoneService = False
@@ -92,7 +89,7 @@ def run():
         if st.button("Predict"):
             output = predict_churn(model=model, df=df)
 
-        st.success('The output is {}'.format(output))
+        st.success('Will the customer leave? {}'.format(output))
 
     if add_selectbox == 'Batch':
 
